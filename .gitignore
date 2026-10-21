@@ -1,0 +1,7 @@
+node_modules/
+
+# Bildschirmfotos aus dem Durchlauf, werden bei jedem Lauf neu erzeugt
+scripts/bildschirmfotos/
+
+.DS_Store
+.claude/settings.local.json

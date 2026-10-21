@@ -1,0 +1,39 @@
+# Prüft bei jedem Push, dass die Inhalte zur Engine passen und die App
+# im Browser durchläuft. Es gibt keinen Build-Schritt – die App ist die
+# Quelle, die hier liegt.
+name: Prüfen
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  inhalte:
+    name: Inhalte gegen die Engine prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm run pruefen
+
+  durchlauf:
+    name: App im Browser durchspielen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci || npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npm run smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bildschirmfotos
+          path: scripts/bildschirmfotos/
+          if-no-files-found: ignore
