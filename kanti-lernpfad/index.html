@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f6feb">
+<meta name="description" content="Lernpfad Deutsch für die Aufnahmeprüfung an die Kantonsschule Thurgau – aus der 2. Sek.">
+<title>Kanti-Lernpfad Deutsch</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kanti-Lernpfad">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header id="kopf" hidden>
+  <button class="kopf-zurueck" id="zurueck" aria-label="Zurück">‹</button>
+  <div class="kopf-mitte">
+    <div class="kopf-titel" id="kopf-titel">Kanti-Lernpfad</div>
+    <div class="kopf-unter" id="kopf-unter"></div>
+  </div>
+  <button class="kopf-profil" id="kopf-profil" aria-label="Profil und Fortschritt">
+    <span class="kopf-avatar" id="kopf-avatar">🙂</span>
+    <span class="kopf-xp" id="kopf-xp">0&nbsp;XP</span>
+  </button>
+</header>
+
+<main id="buehne" aria-live="polite"></main>
+
+<div id="toast-raum" aria-live="assertive"></div>
+<div id="dialog-raum"></div>
+
+<script src="js/daten.js"></script>
+<script src="js/texte.js"></script>
+
+<!-- Inhalt: ein Kapitel pro Datei -->
+<script src="inhalt/k01-textverstaendnis.js"></script>
+<script src="inhalt/k02-synonyme.js"></script>
+<script src="inhalt/k03-wortfamilien.js"></script>
+<script src="inhalt/k04-redewendungen.js"></script>
+<script src="inhalt/k05-wortarten.js"></script>
+<script src="inhalt/k06-verb.js"></script>
+<script src="inhalt/k07-zeitformen.js"></script>
+<script src="inhalt/k08-aktiv-passiv.js"></script>
+<script src="inhalt/k09-nomen-faelle.js"></script>
+<script src="inhalt/k10-pronomen.js"></script>
+<script src="inhalt/k11-partikel.js"></script>
+<script src="inhalt/k12-satzglieder.js"></script>
+<script src="inhalt/k13-satzbau.js"></script>
+<script src="inhalt/k14-zeichensetzung.js"></script>
+<script src="inhalt/k15-schreibaufgabe.js"></script>
+<script src="inhalt/pruefungen.js"></script>
+
+<script src="js/fortschritt.js"></script>
+<script src="js/abzeichen.js"></script>
+<script src="js/aufgaben.js"></script>
+<script src="js/ansichten.js"></script>
+<script src="js/start.js"></script>
+</body>
+</html>

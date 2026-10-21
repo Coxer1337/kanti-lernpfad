@@ -1,0 +1,463 @@
+/* Kanti-Lernpfad Deutsch – Oberfläche
+   Eine Farbtabelle, zwei Themen, und alles andere baut darauf auf. */
+
+:root{
+  --grund:#f6f7fb;
+  --karte:#ffffff;
+  --karte-rand:#e3e6ef;
+  --schrift:#1a1d26;
+  --schrift-leise:#5b6174;
+  --akzent:#1f6feb;
+  --akzent-weich:#e8f0ff;
+  --gruen:#1a8a4f;
+  --gruen-weich:#e4f6ec;
+  --rot:#c62f3d;
+  --rot-weich:#fdeaec;
+  --gold:#c88a00;
+  --gold-weich:#fff5de;
+  --lila:#6b4bd6;
+  --schatten:0 1px 2px rgba(20,24,40,.06), 0 8px 24px rgba(20,24,40,.06);
+  --rund:16px;
+  --rund-klein:10px;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --grund:#10131c;
+    --karte:#181c27;
+    --karte-rand:#272d3d;
+    --schrift:#eef1f8;
+    --schrift-leise:#9aa3b8;
+    --akzent:#6ea8fe;
+    --akzent-weich:#1b2740;
+    --gruen:#5ddb97;
+    --gruen-weich:#132a1f;
+    --rot:#ff8a95;
+    --rot-weich:#2c1619;
+    --gold:#ffd166;
+    --gold-weich:#2b2313;
+    --lila:#b49bff;
+    --schatten:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--grund);
+  color:var(--schrift);
+  font:17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  padding-bottom:env(safe-area-inset-bottom);
+  -webkit-tap-highlight-color:transparent;
+}
+h1,h2,h3{line-height:1.25;margin:0 0 .4em}
+h1{font-size:1.65rem;letter-spacing:-.01em}
+h2{font-size:1.25rem}
+h3{font-size:1.05rem}
+p{margin:0 0 .8em}
+button{font:inherit;color:inherit}
+
+/* ---------- Kopfzeile ---------- */
+#kopf{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:10px;
+  padding:calc(8px + env(safe-area-inset-top)) 14px 8px;
+  background:color-mix(in srgb, var(--karte) 88%, transparent);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--karte-rand);
+}
+.kopf-zurueck{
+  flex:0 0 auto;width:38px;height:38px;border:0;border-radius:50%;
+  background:var(--akzent-weich);color:var(--akzent);
+  font-size:26px;line-height:1;cursor:pointer;
+}
+.kopf-zurueck[hidden]{display:none}
+.kopf-mitte{flex:1 1 auto;min-width:0}
+.kopf-titel{font-weight:650;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kopf-unter{font-size:.78rem;color:var(--schrift-leise);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kopf-profil{
+  flex:0 0 auto;display:flex;align-items:center;gap:7px;
+  border:1px solid var(--karte-rand);background:var(--karte);
+  border-radius:999px;padding:5px 11px 5px 6px;cursor:pointer;
+}
+.kopf-avatar{font-size:20px;line-height:1}
+.kopf-xp{font-size:.8rem;font-weight:650;color:var(--schrift-leise)}
+
+/* ---------- Bühne ---------- */
+#buehne{max-width:860px;margin:0 auto;padding:18px 14px 90px}
+.schmal{max-width:700px;margin-inline:auto}
+
+/* ---------- Karten ---------- */
+.karte{
+  background:var(--karte);border:1px solid var(--karte-rand);
+  border-radius:var(--rund);padding:18px;box-shadow:var(--schatten);
+  margin-bottom:14px;
+}
+.karte.flach{box-shadow:none}
+
+/* ---------- Knöpfe ---------- */
+.knopf{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:0;border-radius:999px;padding:13px 22px;
+  background:var(--akzent);color:#fff;font-weight:650;
+  cursor:pointer;min-height:48px;
+  transition:transform .08s ease, filter .15s ease;
+}
+.knopf:active{transform:scale(.97)}
+.knopf:disabled{opacity:.45;cursor:default}
+.knopf.weich{background:var(--akzent-weich);color:var(--akzent)}
+.knopf.rand{background:transparent;border:1.5px solid var(--karte-rand);color:var(--schrift)}
+.knopf.gruen{background:var(--gruen);color:#fff}
+.knopf.breit{display:flex;width:100%}
+.knopf.klein{padding:8px 14px;min-height:38px;font-size:.88rem}
+@media (prefers-color-scheme: dark){ .knopf.gruen{color:#07160e} .knopf{color:#06101f} }
+
+.knopfreihe{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- Startseite ---------- */
+.held{
+  background:linear-gradient(135deg, var(--akzent) 0%, var(--lila) 100%);
+  color:#fff;border-radius:22px;padding:22px;margin-bottom:18px;
+}
+.held h1{color:#fff;margin-bottom:.25em}
+.held p{color:rgba(255,255,255,.88);margin:0}
+.held-zeile{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}
+.held-zahl{line-height:1.15}
+.held-zahl b{display:block;font-size:1.5rem}
+.held-zahl span{font-size:.78rem;color:rgba(255,255,255,.82)}
+
+.rangleiste{margin-top:14px}
+.rangleiste .balken{background:rgba(255,255,255,.28)}
+.rangleiste .balken i{background:#fff}
+
+/* ---------- Fortschrittsbalken ---------- */
+.balken{height:9px;border-radius:999px;background:var(--karte-rand);overflow:hidden;display:block}
+.balken i{display:block;height:100%;background:var(--akzent);border-radius:999px;transition:width .5s ease}
+.balken.gruen i{background:var(--gruen)}
+
+/* ---------- Lernpfad ---------- */
+.pfad{position:relative;padding-left:4px}
+.station{
+  display:grid;grid-template-columns:52px 1fr;gap:14px;
+  align-items:start;position:relative;padding-bottom:14px;
+}
+.station::before{
+  content:"";position:absolute;left:25px;top:52px;bottom:-2px;width:3px;
+  background:var(--karte-rand);border-radius:2px;
+}
+.station:last-child::before{display:none}
+.station.fertig::before{background:var(--gruen)}
+.station-kreis{
+  width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  font-size:23px;background:var(--karte);border:2.5px solid var(--karte-rand);
+  position:relative;z-index:1;
+}
+.station.offen .station-kreis{border-color:var(--akzent);box-shadow:0 0 0 5px var(--akzent-weich)}
+.station.fertig .station-kreis{border-color:var(--gruen);background:var(--gruen-weich)}
+.station.zu .station-kreis{opacity:.5}
+.station-karte{
+  background:var(--karte);border:1px solid var(--karte-rand);border-radius:var(--rund);
+  padding:14px 16px;cursor:pointer;box-shadow:var(--schatten);
+  transition:transform .1s ease;
+}
+.station-karte:active{transform:scale(.99)}
+.station.zu .station-karte{opacity:.62;cursor:default;box-shadow:none}
+.station-kopf{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.station-titel{font-weight:650}
+.station-meta{font-size:.76rem;color:var(--schrift-leise);white-space:nowrap}
+.station-kurz{font-size:.88rem;color:var(--schrift-leise);margin:4px 0 9px}
+.station-fuss{display:flex;align-items:center;gap:10px;font-size:.76rem;color:var(--schrift-leise)}
+.station-fuss .balken{flex:1}
+
+.sterne{letter-spacing:1px;font-size:.9rem}
+
+/* ---------- Etiketten ---------- */
+.etikett{
+  display:inline-block;padding:3px 9px;border-radius:999px;
+  font-size:.72rem;font-weight:650;background:var(--akzent-weich);color:var(--akzent);
+}
+.etikett.gruen{background:var(--gruen-weich);color:var(--gruen)}
+.etikett.gold{background:var(--gold-weich);color:var(--gold)}
+.etikett.rot{background:var(--rot-weich);color:var(--rot)}
+.etikett.grau{background:var(--karte-rand);color:var(--schrift-leise)}
+
+/* ---------- Theorie ---------- */
+.theorie h2{margin-top:0}
+.theorie-block{margin-bottom:18px}
+.merksatz{
+  background:var(--gold-weich);border-left:4px solid var(--gold);
+  border-radius:var(--rund-klein);padding:12px 14px;margin:12px 0;
+}
+.merksatz b{color:var(--gold)}
+.beispiel{
+  background:var(--akzent-weich);border-radius:var(--rund-klein);
+  padding:12px 14px;margin:12px 0;
+}
+.beispiel b{color:var(--akzent)}
+.probe{
+  background:var(--gruen-weich);border-left:4px solid var(--gruen);
+  border-radius:var(--rund-klein);padding:12px 14px;margin:12px 0;
+}
+.theorie table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+.theorie th,.theorie td{border:1px solid var(--karte-rand);padding:8px 10px;text-align:left;vertical-align:top}
+.theorie th{background:var(--akzent-weich);color:var(--akzent);font-weight:650}
+.theorie ul,.theorie ol{margin:0 0 .8em;padding-left:1.3em}
+.theorie li{margin-bottom:.3em}
+.theorie em{font-style:italic;color:var(--schrift-leise)}
+.theorie .wort{font-weight:650;color:var(--akzent)}
+.theorie code{background:var(--karte-rand);border-radius:5px;padding:1px 5px;font-size:.92em}
+
+/* ---------- Aufgaben ---------- */
+.fortschrittszeile{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:.8rem;color:var(--schrift-leise)}
+.fortschrittszeile .balken{flex:1}
+
+.aufgabe-nr{font-size:.76rem;font-weight:700;color:var(--schrift-leise);text-transform:uppercase;letter-spacing:.06em}
+.aufgabe-frage{font-size:1.05rem;font-weight:600;margin:6px 0 4px}
+.aufgabe-anweisung{font-size:.9rem;color:var(--schrift-leise);margin-bottom:12px}
+.aufgabe-punkte{float:right;font-size:.76rem;color:var(--schrift-leise);font-weight:650}
+
+.lesetext{
+  background:var(--grund);border:1px solid var(--karte-rand);border-radius:var(--rund-klein);
+  padding:14px 16px;margin:0 0 14px;max-height:46vh;overflow:auto;
+  font-size:.95rem;line-height:1.72;
+}
+.lesetext h4{margin:0 0 .6em;font-size:1rem}
+.lesetext .zeile{display:grid;grid-template-columns:30px 1fr;gap:8px}
+.lesetext .zeile .nr{color:var(--schrift-leise);font-size:.78rem;text-align:right;padding-top:.22em;user-select:none}
+.lesetext.zu{max-height:120px;position:relative}
+.text-schalter{display:block;width:100%;text-align:center;margin:-8px 0 14px;font-size:.84rem;color:var(--akzent);background:none;border:0;cursor:pointer;padding:6px}
+
+/* Auswahl */
+.wahl{display:flex;flex-direction:column;gap:8px}
+.wahl-knopf{
+  display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  border:1.5px solid var(--karte-rand);background:var(--karte);
+  border-radius:var(--rund-klein);padding:13px 14px;cursor:pointer;min-height:50px;
+  transition:border-color .12s ease, background .12s ease;
+}
+.wahl-knopf .kasten{
+  flex:0 0 auto;width:24px;height:24px;border:2px solid var(--karte-rand);
+  border-radius:7px;display:grid;place-items:center;font-size:15px;color:transparent;
+}
+.wahl-knopf.rund .kasten{border-radius:50%}
+.wahl-knopf[aria-pressed="true"]{border-color:var(--akzent);background:var(--akzent-weich)}
+.wahl-knopf[aria-pressed="true"] .kasten{border-color:var(--akzent);background:var(--akzent);color:#fff}
+.wahl-knopf.richtig{border-color:var(--gruen);background:var(--gruen-weich)}
+.wahl-knopf.richtig .kasten{border-color:var(--gruen);background:var(--gruen);color:#fff}
+.wahl-knopf.falsch{border-color:var(--rot);background:var(--rot-weich)}
+.wahl-knopf.falsch .kasten{border-color:var(--rot);background:var(--rot);color:#fff}
+.wahl-knopf.verpasst{border-color:var(--gruen);border-style:dashed}
+.wahl-knopf:disabled{cursor:default}
+
+/* richtig / falsch / kein Hinweis */
+.rfk{width:100%;border-collapse:separate;border-spacing:0 7px}
+.rfk th{font-size:.7rem;color:var(--schrift-leise);font-weight:650;padding:0 2px;text-align:center;line-height:1.2}
+.rfk td{vertical-align:middle}
+.rfk td.aussage{padding-right:10px;font-size:.95rem}
+.rfk .kugel{
+  width:40px;height:40px;border-radius:50%;border:2px solid var(--karte-rand);
+  background:var(--karte);cursor:pointer;display:grid;place-items:center;
+  font-size:.74rem;font-weight:700;color:var(--schrift-leise);margin:auto;
+}
+.rfk .kugel[aria-pressed="true"]{border-color:var(--akzent);background:var(--akzent);color:#fff}
+.rfk .kugel.richtig{border-color:var(--gruen);background:var(--gruen);color:#fff}
+.rfk .kugel.falsch{border-color:var(--rot);background:var(--rot);color:#fff}
+.rfk .kugel.verpasst{border-color:var(--gruen);border-style:dashed;color:var(--gruen)}
+
+/* Eingabefelder */
+.feld{
+  border:1.5px solid var(--karte-rand);background:var(--karte);color:var(--schrift);
+  border-radius:var(--rund-klein);padding:11px 13px;font:inherit;width:100%;min-height:48px;
+}
+.feld:focus{outline:2px solid var(--akzent);outline-offset:1px;border-color:var(--akzent)}
+.feld.richtig{border-color:var(--gruen);background:var(--gruen-weich)}
+.feld.falsch{border-color:var(--rot);background:var(--rot-weich)}
+.feld.inline{display:inline-block;width:auto;min-width:9ch;min-height:0;padding:4px 8px;text-align:center}
+textarea.feld{min-height:170px;resize:vertical;line-height:1.6}
+
+.teilaufgabe{margin-bottom:14px}
+.teilaufgabe-text{margin-bottom:6px;font-size:.97rem}
+.teilaufgabe-text .marke{font-weight:700;color:var(--akzent);margin-right:6px}
+.teilaufgabe .vorgabe{color:var(--schrift-leise);font-style:italic}
+
+.tabelle-raster{width:100%;border-collapse:collapse;font-size:.95rem}
+.tabelle-raster th,.tabelle-raster td{border:1px solid var(--karte-rand);padding:7px 8px;text-align:left}
+.tabelle-raster th{background:var(--akzent-weich);color:var(--akzent);font-size:.8rem}
+.tabelle-raster .feld{min-height:40px;padding:7px 9px}
+
+/* Zuordnung */
+.zuordnung{display:flex;flex-direction:column;gap:9px}
+.zuordnung-zeile{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.zuordnung-zeile .text{flex:1 1 230px;font-size:.95rem}
+.zuordnung-zeile select{min-width:130px}
+.vorrat{background:var(--grund);border:1px solid var(--karte-rand);border-radius:var(--rund-klein);padding:11px 13px;margin-bottom:12px}
+.vorrat ol{margin:0;padding-left:1.4em;columns:2;font-size:.9rem}
+@media (max-width:520px){ .vorrat ol{columns:1} }
+
+/* Wörter markieren */
+.wortsatz{line-height:2.3;margin-bottom:10px;font-size:1rem}
+.wort-knopf{
+  border:1.5px solid transparent;background:transparent;border-radius:7px;
+  padding:3px 5px;cursor:pointer;font:inherit;
+}
+.wort-knopf:hover{background:var(--karte-rand)}
+.wort-knopf[aria-pressed="true"]{background:var(--akzent);color:#fff;border-color:var(--akzent)}
+.wort-knopf.richtig{background:var(--gruen);color:#fff;border-color:var(--gruen)}
+.wort-knopf.falsch{background:var(--rot);color:#fff;border-color:var(--rot)}
+.wort-knopf.verpasst{border-color:var(--gruen);border-style:dashed;color:var(--gruen);font-weight:650}
+@media (prefers-color-scheme: dark){
+  .wort-knopf[aria-pressed="true"],.wort-knopf.richtig,.wort-knopf.falsch{color:#0d1220}
+}
+
+/* Striche setzen (Satzglieder, Kommas) */
+.strichsatz{line-height:2.6;font-size:1rem;margin-bottom:10px}
+.strich-stelle{
+  display:inline-block;width:20px;height:30px;vertical-align:middle;
+  border:0;background:transparent;cursor:pointer;position:relative;padding:0;
+}
+.strich-stelle::after{
+  content:"";position:absolute;left:50%;top:4px;bottom:4px;width:2px;
+  transform:translateX(-50%);background:var(--karte-rand);border-radius:2px;opacity:.5;
+}
+.strich-stelle[aria-pressed="true"]::after{background:var(--akzent);opacity:1;width:3px}
+.strich-stelle.richtig::after{background:var(--gruen);opacity:1;width:3px}
+.strich-stelle.falsch::after{background:var(--rot);opacity:1;width:3px}
+.strich-stelle.verpasst::after{background:var(--gruen);opacity:1;width:3px;
+  background-image:repeating-linear-gradient(var(--gruen) 0 4px, transparent 4px 8px);}
+.strich-stelle.komma[aria-pressed="true"]::after,
+.strich-stelle.komma.richtig::after{content:",";background:none;font-size:22px;font-weight:700;
+  top:auto;bottom:-2px;width:auto;line-height:1;color:var(--gruen)}
+.strich-stelle.komma[aria-pressed="true"]::after{color:var(--akzent)}
+.strich-stelle.komma.falsch::after{content:",";background:none;font-size:22px;font-weight:700;
+  top:auto;bottom:-2px;width:auto;line-height:1;color:var(--rot)}
+
+/* Rückmeldung */
+.rueckmeldung{
+  border-radius:var(--rund-klein);padding:13px 15px;margin-top:14px;
+  animation:auf .22s ease;
+}
+@keyframes auf{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rueckmeldung.gut{background:var(--gruen-weich);border-left:4px solid var(--gruen)}
+.rueckmeldung.halb{background:var(--gold-weich);border-left:4px solid var(--gold)}
+.rueckmeldung.schlecht{background:var(--rot-weich);border-left:4px solid var(--rot)}
+.rueckmeldung-kopf{font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.rueckmeldung.gut .rueckmeldung-kopf{color:var(--gruen)}
+.rueckmeldung.halb .rueckmeldung-kopf{color:var(--gold)}
+.rueckmeldung.schlecht .rueckmeldung-kopf{color:var(--rot)}
+.rueckmeldung p:last-child{margin-bottom:0}
+.rueckmeldung .loesung{font-weight:650}
+.rueckmeldung .punktregel{
+  font-size:.78rem;color:var(--schrift-leise);margin-top:8px;
+  padding-top:8px;border-top:1px dashed var(--karte-rand);
+}
+
+.selbstcheck{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+/* Fussleiste der Aufgabe */
+.aufgaben-fuss{
+  position:sticky;bottom:0;background:color-mix(in srgb, var(--grund) 92%, transparent);
+  backdrop-filter:blur(10px);padding:12px 0 calc(12px + env(safe-area-inset-bottom));
+  margin:14px -14px -90px;padding-inline:14px;border-top:1px solid var(--karte-rand);
+  display:flex;gap:10px;
+}
+.aufgaben-fuss .knopf{flex:1}
+
+/* ---------- Auswertung ---------- */
+.ergebnis{text-align:center;padding:26px 18px}
+.ergebnis .emoji{font-size:64px;line-height:1;margin-bottom:10px}
+.ergebnis .punkte{font-size:2.4rem;font-weight:750;letter-spacing:-.02em}
+.ergebnis .punkte small{font-size:1rem;color:var(--schrift-leise);font-weight:600}
+.ergebnis .sterne{font-size:2rem;letter-spacing:6px;margin:10px 0}
+.ergebnis .note{font-size:1.05rem;color:var(--schrift-leise)}
+.belohnung{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.belohnung .gewinn{
+  background:var(--gold-weich);color:var(--gold);border-radius:var(--rund-klein);
+  padding:9px 14px;font-weight:650;font-size:.9rem;
+}
+
+.fehlerliste{margin-top:6px}
+.fehlerzeile{
+  display:flex;gap:10px;align-items:flex-start;padding:10px 0;
+  border-bottom:1px solid var(--karte-rand);font-size:.92rem;
+}
+.fehlerzeile:last-child{border-bottom:0}
+.fehlerzeile .zeichen{flex:0 0 auto;font-size:1.05rem}
+
+/* ---------- Abzeichen ---------- */
+.abzeichen-gitter{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:12px}
+.abzeichen{
+  text-align:center;padding:13px 8px;border-radius:var(--rund-klein);
+  background:var(--karte);border:1px solid var(--karte-rand);
+}
+.abzeichen .bild{font-size:30px;line-height:1.2;filter:grayscale(1);opacity:.35}
+.abzeichen.hat .bild{filter:none;opacity:1}
+.abzeichen .name{font-size:.76rem;font-weight:650;margin-top:5px}
+.abzeichen .wie{font-size:.68rem;color:var(--schrift-leise);margin-top:2px}
+
+/* ---------- Toast ---------- */
+#toast-raum{position:fixed;left:0;right:0;bottom:22px;z-index:60;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+.toast{
+  background:var(--schrift);color:var(--grund);border-radius:999px;
+  padding:11px 20px;font-weight:650;font-size:.9rem;box-shadow:var(--schatten);
+  animation:toast-auf .25s ease;max-width:90vw;
+}
+@keyframes toast-auf{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+
+/* ---------- Dialog ---------- */
+.dialog-hinter{
+  position:fixed;inset:0;z-index:70;background:rgba(10,14,25,.5);
+  display:grid;place-items:end center;padding:0;
+}
+.dialog{
+  background:var(--karte);width:100%;max-width:560px;
+  border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));
+  max-height:88vh;overflow:auto;animation:hoch .25s ease;
+}
+@keyframes hoch{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:620px){
+  .dialog-hinter{place-items:center}
+  .dialog{border-radius:22px;max-height:84vh}
+}
+.dialog h2{margin-top:0}
+.dialog-griff{width:40px;height:4px;border-radius:2px;background:var(--karte-rand);margin:-8px auto 14px}
+
+/* ---------- Profile ---------- */
+.profilliste{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.profilzeile{
+  display:flex;align-items:center;gap:11px;padding:11px 13px;
+  border:1.5px solid var(--karte-rand);border-radius:var(--rund-klein);
+  background:var(--karte);cursor:pointer;text-align:left;width:100%;
+}
+.profilzeile.aktiv{border-color:var(--akzent);background:var(--akzent-weich)}
+.profilzeile .av{font-size:26px}
+.profilzeile .nm{flex:1;font-weight:650}
+.profilzeile .xp{font-size:.8rem;color:var(--schrift-leise)}
+.avatarwahl{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 14px}
+.avatarwahl button{
+  width:46px;height:46px;border-radius:50%;border:2px solid var(--karte-rand);
+  background:var(--karte);font-size:24px;cursor:pointer;
+}
+.avatarwahl button[aria-pressed="true"]{border-color:var(--akzent);background:var(--akzent-weich)}
+
+/* ---------- Übersichtsgitter ---------- */
+.kachelgitter{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.kachel{
+  background:var(--karte);border:1px solid var(--karte-rand);border-radius:var(--rund);
+  padding:14px;text-align:center;
+}
+.kachel b{display:block;font-size:1.5rem;letter-spacing:-.02em}
+.kachel span{font-size:.76rem;color:var(--schrift-leise)}
+
+.liste-leise{list-style:none;margin:0;padding:0}
+.liste-leise li{padding:9px 0;border-bottom:1px solid var(--karte-rand);display:flex;justify-content:space-between;gap:12px;font-size:.92rem}
+.liste-leise li:last-child{border-bottom:0}
+
+.hinweis{font-size:.84rem;color:var(--schrift-leise)}
+.mitte{text-align:center}
+.abstand{margin-top:14px}
+
+@media print{
+  #kopf,.aufgaben-fuss,#toast-raum{display:none}
+  body{background:#fff}
+}

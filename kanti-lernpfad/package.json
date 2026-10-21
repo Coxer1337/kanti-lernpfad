@@ -1,0 +1,20 @@
+{
+  "name": "kanti-lernpfad",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lernpfad Deutsch für die Aufnahmeprüfung an die Thurgauer Mittelschulen, Eintritt aus der 2. Sek.",
+  "type": "module",
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "pruefen": "node scripts/pruefen.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "icons": "python3 scripts/icons.py",
+    "test": "node scripts/pruefen.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
